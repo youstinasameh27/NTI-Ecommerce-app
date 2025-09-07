@@ -1,0 +1,29 @@
+<div class="products-page">
+  <div class="products-header">
+    <h1>Our Products</h1>
+    <div class="filters">
+      <label>
+        Category:
+        <select (change)="onCategoryChange($event)">
+          <option value="all">All categories</option>
+          <option *ngFor="let c of categories" [value]="c._id">{{c.name}}</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="product-card" *ngFor="let product of filteredProducts">
+      <div class="img-wrap">
+        <img [src]="staticURL + '/' + product.imgURL" [alt]="product.title">
+        <div class="overlay">
+          <a [routerLink]="['/product', product.route]" class="details-btn">Show Details</a>
+        </div>
+      </div>
+      <div class="meta">
+        <h3>{{product.title}}</h3>
+        <p class="price">{{product.price | number}}</p>
+      </div>
+    </div>
+  </div>
+</div>

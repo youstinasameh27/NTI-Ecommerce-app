@@ -1,0 +1,23 @@
+.newsletter {
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.newsletter h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.newsletter form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.newsletter input {
+  flex: 1;
+  min-width: 220px;
+}

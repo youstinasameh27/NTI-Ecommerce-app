@@ -1,0 +1,19 @@
+:root{
+  --card:#0f1720;
+  --muted:#93a3ad;
+  --accent:#7bd389;
+  --text:#e7f2fb;
+}
+
+.order-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  border-radius:12px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+}
+.order-meta { display:flex;flex-direction:column;gap:6px; color:var(--text) }
+.order-items { margin-top:12px; display:flex;flex-direction:column; gap:8px; }
+.item-row { display:flex;gap:10px;align-items:center;padding:10px;border-radius:8px;background:rgba(255,255,255,0.01); }
+.item-row img { width:84px;height:84px;object-fit:cover;border-radius:8px; }
+.total { font-weight:900;color:var(--accent);font-size:1.1rem }

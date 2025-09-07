@@ -1,0 +1,9 @@
+.auth-card{
+  max-width:480px;margin:1.2rem auto;padding:1.2rem;border-radius:12px;background:var(--surface);
+  box-shadow:0 14px 48px rgba(12,18,30,0.08)
+}
+.auth-card h2{margin:0 0 .6rem;font-size:1.1rem}
+.form-row{display:flex;flex-direction:column;gap:.6rem}
+.form-row .help{color:var(--muted);font-size:.9rem}
+.btn-login{width:100%;padding:.7rem;border-radius:10px}
+.small-link{text-align:right;margin-top:.4rem}

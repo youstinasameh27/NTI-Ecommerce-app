@@ -1,0 +1,22 @@
+<div class="container py-4">
+  <h1 class="h4 mb-3">Frequently Asked Questions</h1>
+
+  <div *ngIf="msg" class="alert alert-warning">{{ msg }}</div>
+  <div *ngIf="loading" class="text-muted">Loading...</div>
+
+  <div class="accordion" id="faqAcc" *ngIf="!loading">
+    <div class="accordion-item" *ngFor="let q of items; let i = index">
+      <h2 class="accordion-header" id="h{{i}}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#c'+i">
+          {{ q.question }}
+        </button>
+      </h2>
+      <div [id]="'c'+i" class="accordion-collapse collapse" [attr.aria-labelledby]="'h'+i" data-bs-parent="#faqAcc">
+        <div class="accordion-body">
+          <p class="mb-0">{{ q.answer }}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="items.length === 0" class="text-muted">No questions yet.</div>
+  </div>
+</div>

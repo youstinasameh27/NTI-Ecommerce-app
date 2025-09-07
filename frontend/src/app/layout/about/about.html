@@ -1,0 +1,10 @@
+<div class="container py-4">
+  <h1 class="h4 mb-3">{{ title }}</h1>
+
+  <div *ngIf="msg" class="alert alert-warning">{{ msg }}</div>
+  <div *ngIf="loading" class="text-muted">Loading...</div>
+
+  <div class="about-content" *ngIf="!loading">
+    <pre class="mb-0">{{ content }}</pre>
+  </div>
+</div>

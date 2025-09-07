@@ -1,0 +1,95 @@
+<section class="container py-4">
+  <h1 class="h4 mb-3">Your Cart</h1>
+
+  <div *ngIf="!(cart?.items?.length)" class="text-muted">Cart is empty.</div>
+  <div *ngIf="cart?.items?.length">
+    <div class="row g-4">
+      <div class="col-12 col-lg-8">
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th style="width:55%">Item</th>
+                <th class="text-center" style="width:20%">Qty</th>
+                <th class="text-end" style="width:20%">Price</th>
+                <th style="width:5%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of cart?.items; trackBy: trackByItemId">
+                  <td>
+                    <div class="d-flex align-items-center gap-3">
+                      <img [src]="productImg(i) | imgUrl" class="thumb" alt="">
+                      <div class="title">{{ productTitle(i) }}</div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="qty">
+                      <button class="btn btn-sm btn-light" (click)="dec(i)">-</button>
+                      <span class="mx-2">{{ i.qty }}</span>
+                      <button class="btn btn-sm btn-light" (click)="inc(i)">+</button>
+                    </div>
+                  </td>
+                  <td class="text-end">{{ i.price | price }}</td>
+                  <td class="text-end">
+                    <button class="btn btn-sm btn-link text-danger" (click)="del(i)">Remove</button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="h6 mb-3">Summary</h2>
+
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <strong>{{ subtotal() | price }}</strong>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Promo code</label>
+              <div class="input-group">
+                <input class="form-control" [(ngModel)]="code" placeholder="Enter code">
+                <button class="btn btn-outline-secondary" (click)="apply()">Apply</button>
+              </div>
+              <div class="small text-muted mt-1" *ngIf="discount">Discount: {{ discount | price }}</div>
+            </div>
+
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Total</span>
+              <strong class="fs-5">{{ final | price }}</strong>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <textarea class="form-control" rows="2" [(ngModel)]="address" placeholder="Street, city, governorate"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input class="form-control" [(ngModel)]="phone" placeholder="01xxxxxxxxx">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label d-block">Payment method</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="cod" name="pay" [(ngModel)]="payment" [value]="'COD'">
+                <label class="form-check-label" for="cod">Cash on Delivery</label>
+              </div>
+            </div>
+
+    <div class="total">
+      <div style="text-align:right;margin-top:12px">Checkout area</div>
+      <div style="text-align:right;margin-top:8px">
+        <button (click)="placeOrder()">Place order</button>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+<section class="container py-3">
+  <h2 class="h5 mb-3">Product Variants & Categories</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <app-category-cascade
+        [(topId)]="product.categoryId"
+        [(value)]="product.subCategoryId"
+        topLabel="Main (Men/Women)"
+        childLabel="Category">
+      </app-category-cascade>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="h6 mb-3">Options</h3>
+
+      <div class="row g-2 mb-3">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Option name (e.g., Size, Color)" [(ngModel)]="optName">
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" placeholder="Values (comma separated)" [(ngModel)]="optValues">
+        </div>
+        <div class="col-md-2 d-grid">
+          <button class="btn btn-outline-dark" type="button" (click)="addOption()">Add option</button>
+        </div>
+      </div>
+
+      <div *ngFor="let o of product.options; let i = index" class="mb-2">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="fw-semibold">{{ o.name }}</div>
+          <button class="btn btn-sm btn-outline-danger" type="button" (click)="removeOption(i)">Remove</button>
+        </div>
+        <div class="mt-2 d-flex flex-wrap gap-2">
+          <span *ngFor="let v of o.values; let j = index" class="badge bg-light text-dark px-2 py-2">
+            {{ v }}
+            <button class="btn btn-sm btn-link text-danger ms-2 p-0" type="button" (click)="removeValue(i,j)">×</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="text-end">
+        <button class="btn btn-dark" type="button" (click)="generateVariants()">Generate combinations</button>
+        <button class="btn btn-outline-secondary ms-2" type="button" (click)="saveOptions()" [disabled]="busy">Save options</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variants stock grid -->
+  <div class="card">
+    <div class="card-body">
+      <h3 class="h6 mb-3">Stock per combination</h3>
+
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Combination</th>
+              <th class="text-end" style="width:140px;">Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let v of product.variants; let i = index">
+              <td><code>{{ v.key }}</code></td>
+              <td class="text-end">
+                <input type="number" class="form-control form-control-sm text-end"
+                       [(ngModel)]="product.variants[i].stock" min="0" max="9999">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-end">
+        <button class="btn btn-dark" type="button" (click)="saveVariants()" [disabled]="busy">Save stock</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- messages -->
+  <div *ngIf="ok" class="alert alert-success mt-3">{{ ok }}</div>
+  <div *ngIf="msg" class="alert alert-warning mt-3">{{ msg }}</div>
+</section>

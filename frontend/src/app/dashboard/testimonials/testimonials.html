@@ -1,0 +1,19 @@
+<h2 class="h5 mb-3">Testimonials (pending)</h2>
+<div *ngIf="loading" class="text-muted small mb-2">Loading...</div>
+<div class="table-responsive">
+  <table class="table table-sm align-middle">
+    <thead><tr><th>#</th><th>Name</th><th>Message</th><th>Created</th><th></th></tr></thead>
+    <tbody>
+      <tr *ngFor="let t of items; let i=index">
+        <td>{{ i+1 }}</td>
+        <td>{{ t.name }}</td>
+        <td style="max-width:420px">{{ t.message }}</td>
+        <td>{{ t.createdAt }}</td>
+        <td>
+          <button class="btn btn-sm btn-success me-2" (click)="approve(t)">Approve</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="remove(t)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

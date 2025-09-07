@@ -1,0 +1,20 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.product-grid .card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-grid .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+}
+
+.product-grid img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}

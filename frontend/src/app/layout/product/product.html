@@ -1,0 +1,77 @@
+<div class="product-page" *ngIf="product">
+  <div class="product-grid">
+    <div class="left">
+      <img [src]="staticURL + '/' + product.imgURL" [alt]="product.title">
+    </div>
+    <div class="right">
+      <h1>{{product.title}}</h1>
+      <p class="price">{{product.price | number}}</p>
+      <p class="desc">{{product.desc}}</p>
+
+      <div *ngIf="product.options && product.options.length">
+        <div class="option" *ngFor="let opt of product.options">
+          <label class="opt-name">{{opt.name}}</label>
+          <div class="values">
+            <button *ngFor="let val of opt.values"
+                    (click)="selectOption(opt.name, val)"
+                    [disabled]="!isValueAvailable(opt.name, val)"
+                    [class.selected]="selectedOptions[opt.name] === val"
+                    [class.unavailable]="!isValueAvailable(opt.name, val)">
+              {{val}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stock" *ngIf="selectedVariant">
+        <p>Selected stock: {{selectedVariant?.stock}}</p>
+      </div>
+      <div *ngIf="!selectedVariant && (!product.options || product.options.length===0)">
+        <p>Stock: {{product.stock || 0}}</p>
+      </div>
+
+      <div class="actions">
+        <label>Qty: <input type="number" min="1" [value]="qty" (input)="qty = $any($event.target).valueAsNumber || 1"></label>
+        <button (click)="addToCart()" [disabled]="!canAddToCart()">Add to cart</button>
+      </div>
+
+      <hr>
+
+      <div class="ratings">
+        <h3>Ratings & Reviews</h3>
+        <div *ngIf="testimonials && testimonials.length === 0">No reviews yet.</div>
+        <div *ngFor="let t of testimonials">
+          <strong>{{t.userId?.name || 'User'}}</strong>
+          <span> - {{t.rating}} ★</span>
+          <p>{{t.content}}</p>
+        </div>
+
+        <div *ngIf="canRate">
+          <h4>Leave a rating</h4>
+          <label>
+            Select order:
+            <select #orderSel>
+              <option *ngFor="let o of myDeliveredOrders" [value]="o._id">Order #{{o._id}} - {{o.createdAt | date}}</option>
+            </select>
+          </label>
+          <label>
+            Rating:
+            <select #rateSel>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </label>
+          <label>
+            Comment:
+            <textarea #txt></textarea>
+          </label>
+          <button (click)="submitRating(orderSel.value, rateSel.value, txt.value)">Submit rating</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

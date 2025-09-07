@@ -1,0 +1,39 @@
+<h2 class="h5">Categories</h2>
+
+<div class="row g-3" style="max-width:720px">
+  <div class="col-12">
+    <div class="alert py-2" [class.alert-success]="msg==='Category created'" [class.alert-danger]="!!msg && msg!=='Category created'" *ngIf="msg">{{ msg }}</div>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Name *</label>
+    <input class="form-control" [(ngModel)]="name" placeholder="e.g., Men">
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Route *</label>
+    <input class="form-control" [(ngModel)]="route" placeholder="e.g., men">
+  </div>
+
+  <div class="col-12">
+    <button class="btn btn-primary" (click)="save()">Create</button>
+  </div>
+
+  <div class="col-12">
+    <hr>
+    <div class="fw-semibold mb-2">Existing</div>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Route</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of items; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.route }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

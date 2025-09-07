@@ -1,0 +1,19 @@
+<div class="container">
+  <h3 class="h5 mb-3">Related products</h3>
+
+  <div *ngIf="loading" class="text-muted">Loading…</div>
+
+  <div class="row g-3" *ngIf="!loading">
+    <div class="col-6 col-lg-3" *ngFor="let p of items; trackBy: trackById">
+      <a class="text-decoration-none text-dark" [routerLink]="['/product', p.route]">
+        <div class="product-card border rounded overflow-hidden">
+          <img class="img w-100" [src]="p.imgURL | imgUrl" [alt]="p.title" />
+          <div class="p-2">
+            <div class="title text-truncate">{{ p.title }}</div>
+            <div class="price">{{ p.price | price }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

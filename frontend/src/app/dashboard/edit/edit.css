@@ -1,0 +1,9 @@
+:root{ --muted:#93a3ad; --text:#e7f2fb; --card:#0f1720; --radius:8px }
+
+.form-row { display:flex; gap:12px; flex-wrap:wrap; }
+.form-field { flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+label.form-label { font-weight:800; color:var(--text); }
+input.form-control, textarea.form-control, select.form-select {
+  background: rgba(255,255,255,0.02); color:var(--text); border:1px solid rgba(255,255,255,0.03); padding:.6rem .7rem; border-radius:8px;
+}
+.form-actions { display:flex; gap:8px; margin-top:12px; }

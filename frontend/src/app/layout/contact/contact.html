@@ -1,0 +1,29 @@
+<section class="container" style="max-width:640px">
+  <h1 class="h4 mb-3">Contact</h1>
+
+  <div class="alert alert-info py-2" *ngIf="msg">{{ msg }}</div>
+
+  <div class="d-grid gap-2">
+    <input class="form-control" [(ngModel)]="name" placeholder="Name">
+    <input class="form-control" [(ngModel)]="email" placeholder="Email" type="email">
+
+    <div class="row g-2">
+      <div class="col-12 col-md-6">
+        <input class="form-control" [(ngModel)]="phone" placeholder="Phone (optional)">
+      </div>
+      <div class="col-12 col-md-6">
+        <select class="form-select" [(ngModel)]="category">
+          <option value="question">Question</option>
+          <option value="complain">Complain</option>
+        </select>
+      </div>
+    </div>
+
+    <textarea class="form-control" rows="5" [(ngModel)]="message" placeholder="Message"></textarea>
+
+    <button class="btn btn-primary" (click)="send()" [disabled]="sending">
+      <span *ngIf="sending; else ok">Sending…</span>
+      <ng-template #ok>Send</ng-template>
+    </button>
+  </div>
+</section>

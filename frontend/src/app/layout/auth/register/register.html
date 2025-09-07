@@ -1,0 +1,10 @@
+<section class="container" style="max-width:420px">
+  <h1 class="h4 mb-3">Register</h1>
+  <div class="alert alert-danger py-2" *ngIf="msg">{{ msg }}</div>
+  <form (ngSubmit)="submit()" class="d-grid gap-2">
+    <input class="form-control" [(ngModel)]="name" name="name" placeholder="Name" required>
+    <input class="form-control" [(ngModel)]="email" name="email" type="email" placeholder="Email" required>
+    <input class="form-control" [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+    <button class="btn btn-primary" type="submit">Create account</button>
+  </form>
+</section>

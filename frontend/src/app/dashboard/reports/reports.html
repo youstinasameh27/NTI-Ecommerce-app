@@ -1,0 +1,57 @@
+<h2 class="h5">Promos & Reports</h2>
+
+<div class="row g-3">
+  <div class="col-md-5">
+    <div class="border rounded p-3">
+      <div class="fw-semibold mb-2">Create promo code</div>
+      <input class="form-control mb-2" placeholder="CODE" [(ngModel)]="code">
+      <input class="form-control mb-2" type="number" min="1" max="90" placeholder="% percent" [(ngModel)]="percent">
+      <button class="btn btn-primary" (click)="create()">Create</button>
+      <div class="alert alert-info py-2 mt-2" *ngIf="msg">{{ msg }}</div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="border rounded p-3">
+      <div class="fw-semibold mb-2">Questions & Complaints (Contact)</div>
+      <div class="small text-muted mb-2" *ngIf="cmsg">{{ cmsg }}</div>
+
+      <table class="table table-sm align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Message</th>
+            <th>Created</th>
+            <th>Handled</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of items; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.category }}</td>
+            <td style="max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              {{ c.message }}
+            </td>
+            <td>{{ c.createdAt || '-' }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-success"
+                      (click)="handled(c)"
+                      [disabled]="busy || c.handled">
+                <span *ngIf="c.handled">Handled</span>
+                <span *ngIf="!c.handled">Mark handled</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

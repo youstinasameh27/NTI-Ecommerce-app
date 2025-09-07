@@ -1,0 +1,17 @@
+.profile {
+  padding: 40px 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.profile h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.profile .info {
+  background-color: #1e1e1e;
+  padding: 25px;
+  border-radius: 12px;
+}

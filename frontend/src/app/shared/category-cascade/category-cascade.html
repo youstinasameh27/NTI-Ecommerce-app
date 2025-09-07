@@ -1,0 +1,25 @@
+<div class="row g-2">
+  <div class="col-12 col-md-6">
+    <label class="form-label">{{ topLabel }}</label>
+    <select class="form-select"
+            [(ngModel)]="topId"
+            (ngModelChange)="onTopChange()"
+            [disabled]="disabled || busy">
+      <option [ngValue]="''" disabled hidden>{{ topPlaceholder }}</option>
+      <option *ngFor="let t of tops" [ngValue]="t._id">{{ t.name }}</option>
+    </select>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <label class="form-label">{{ childLabel }}</label>
+    <select class="form-select"
+            [(ngModel)]="value"
+            (ngModelChange)="onChildChange()"
+            [disabled]="disabled || busy || !topId">
+      <option [ngValue]="''" disabled hidden>{{ childPlaceholder }}</option>
+      <option *ngFor="let c of childs" [ngValue]="c._id">{{ c.name }}</option>
+    </select>
+  </div>
+</div>
+
+<div *ngIf="msg" class="alert alert-warning small mt-2">{{ msg }}</div>

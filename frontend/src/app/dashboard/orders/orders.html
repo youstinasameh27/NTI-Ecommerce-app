@@ -1,0 +1,63 @@
+<div class="container py-3">
+  <h3 class="mb-3">Orders</h3>
+
+  <div *ngIf="msg" class="alert alert-warning">{{ msg }}</div>
+  <div *ngIf="busy" class="text-muted">Loading...</div>
+
+  <div class="table-responsive" *ngIf="!busy">
+    <table class="table table-sm align-middle">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Order ID</th>
+          <th>Created</th>
+          <th>Items (title × qty)</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th style="min-width: 220px;">Comment (for cancel)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of items; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="text-monospace">{{ o._id }}</td>
+          <td>{{ o.createdAt | date:'short' }}</td>
+
+          <td style="min-width: 240px;">
+            <div *ngIf="(o.items || []).length === 0" class="text-muted">—</div>
+            <div *ngFor="let it of (o.items || [])" class="small">
+              {{ (it?.title || it?.product?.title || 'Item') }} × {{ it?.qty || 0 }}
+              <span class="text-muted" *ngIf="it?.variantKey">({{ it.variantKey }})</span>
+            </div>
+            <div class="small text-muted mt-1" *ngIf="(o.items || []).length">
+              Total items: {{ totalItems(o) }}
+            </div>
+          </td>
+
+          <td>{{ amount(o) }} {{ o?.totals?.currency || 'EGP' }}</td>
+
+          <td style="min-width: 150px;">
+            <select class="form-select form-select-sm" [(ngModel)]="o.status">
+              <option [ngValue]="'pending'">placed</option>
+              <option [ngValue]="'processing'">processing</option>
+              <option [ngValue]="'shipped'">shipped</option>
+              <option [ngValue]="'delivered'">delivered</option>
+              <option [ngValue]="'cancelled'">cancelled</option>
+            </select>
+          </td>
+
+          <td>
+            <input class="form-control form-control-sm"
+                   [(ngModel)]="note[o._id]"
+                   [placeholder]="o.status==='cancelled' ? 'Reason for cancellation' : 'Optional comment'">
+          </td>
+
+          <td>
+            <button class="btn btn-sm btn-primary" (click)="save(o)">Save</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

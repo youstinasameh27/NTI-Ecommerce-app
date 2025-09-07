@@ -1,0 +1,84 @@
+<div class="container py-3">
+  <h3 class="mb-3">Content</h3>
+
+  <!-- ABOUT -->
+  <div class="card mb-4">
+    <div class="card-header">About page</div>
+    <div class="card-body">
+      <div class="mb-2">
+        <label class="form-label">Title</label>
+        <input class="form-control" [(ngModel)]="aboutTitle" />
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" rows="8" [(ngModel)]="aboutText"
+                  placeholder="Write details about Youstina Brand, Egypt shipping, COD, 14-day policy..."></textarea>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-primary" (click)="saveAbout()" [disabled]="aboutBusy">
+          {{ aboutBusy ? 'Saving...' : 'Save About' }}
+        </button>
+        <span class="small text-muted" *ngIf="aboutMsg">{{ aboutMsg }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <div class="card-header">FAQ (Questions & Answers)</div>
+    <div class="card-body">
+      <div class="row g-2 mb-3">
+        <div class="col-12 col-md-5">
+          <input class="form-control" [(ngModel)]="q" placeholder="Question">
+        </div>
+        <div class="col-12 col-md-5">
+          <input class="form-control" [(ngModel)]="a" placeholder="Answer">
+        </div>
+        <div class="col-6 col-md-1 d-flex align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="enabled" id="enabledNew">
+            <label class="form-check-label small" for="enabledNew">Enabled</label>
+          </div>
+        </div>
+        <div class="col-6 col-md-1">
+          <button class="btn btn-success w-100" (click)="addFaq()">Add</button>
+        </div>
+      </div>
+
+      <div *ngIf="faqMsg" class="alert alert-warning py-2">{{ faqMsg }}</div>
+
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead>
+            <tr>
+              <th style="width: 36px;">#</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th style="width: 110px;">Enabled</th>
+              <th style="width: 120px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let f of faqs; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><input class="form-control form-control-sm" [(ngModel)]="f.question"></td>
+              <td><input class="form-control form-control-sm" [(ngModel)]="f.answer"></td>
+              <td>
+                <div class="form-check d-flex justify-content-center">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="f.enabled" (change)="toggleEnabled(f)">
+                </div>
+              </td>
+              <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-primary" (click)="saveFaq(f)">Save</button>
+                  <button class="btn btn-outline-danger" (click)="deleteFaq(f)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="(faqs||[]).length === 0" class="text-muted">No FAQs yet.</div>
+      </div>
+    </div>
+  </div>
+</div>

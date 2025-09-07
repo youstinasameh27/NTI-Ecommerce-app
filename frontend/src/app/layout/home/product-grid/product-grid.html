@@ -1,0 +1,16 @@
+<section class="container">
+  <h2 class="h4 mb-3">All Products</h2>
+  <div class="row g-3">
+    <div class="col-6 col-md-3" *ngFor="let p of (products || [])">
+      <a class="text-decoration-none text-dark" [routerLink]="['/product', p.route]">
+        <div class="product-card">
+          <img class="img" [src]="p.imgURL | imgUrl" [alt]="p.title">
+          <div class="p-2">
+            <div class="title">{{ p.title }}</div>
+            <div class="price">{{ p.price | price }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>

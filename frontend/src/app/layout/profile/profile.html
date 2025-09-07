@@ -1,0 +1,79 @@
+<section class="container" *ngIf="me">
+  <h1 class="h4 mb-3">My Profile</h1>
+  <div class="alert py-2"
+       [class.alert-success]="msg==='Saved'"
+       [class.alert-danger]="msg==='Failed'"
+       *ngIf="msg">{{ msg }}</div>
+
+  <div class="card shadow-sm" style="max-width: 560px;">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" [(ngModel)]="name" [readonly]="!editing">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="email" [(ngModel)]="email" [readonly]="!editing">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input class="form-control" [(ngModel)]="phone" [readonly]="!editing">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Address</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="address" [readonly]="!editing"></textarea>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary" *ngIf="!editing" (click)="edit()">Edit</button>
+        <button class="btn btn-primary" *ngIf="editing" (click)="save()">Save changes</button>
+        <button class="btn btn-light" *ngIf="editing" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mt-4">
+    <h2 class="h6 mb-2">My Orders</h2>
+    <div class="text-muted" *ngIf="loadingOrders">Loading...</div>
+    <div class="table-responsive" *ngIf="!loadingOrders">
+      <table class="table table-sm align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Created</th>
+            <th>Items (title × qty)</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th *ngIf="orders?.length">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of orders; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ o.createdAt | date:'short' }}</td>
+
+            <td style="min-width: 240px;">
+              <div *ngIf="(o.items || []).length === 0" class="text-muted">—</div>
+              <div *ngFor="let it of (o.items || [])" class="small">
+                {{ (it?.title || it?.product?.title || 'Item') }} × {{ it?.qty || 0 }}
+                <span class="text-muted" *ngIf="it?.variantKey">({{ it.variantKey }})</span>
+              </div>
+              <div class="small text-muted mt-1" *ngIf="(o.items || []).length">
+                Total items: {{ itemsCount(o) }}
+              </div>
+            </td>
+
+            <td>{{ orderTotal(o) }} {{ orderCurrency(o) }}</td>
+            <td class="text-capitalize">{{ statusLabel(o.status) }}</td>
+
+            <td *ngIf="o.status === 'cancelled'">
+              <span class="text-danger small">Reason: {{ cancelReason(o) }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="(orders||[]).length === 0" class="text-muted">No orders yet.</div>
+    </div>
+  </div>
+</section>

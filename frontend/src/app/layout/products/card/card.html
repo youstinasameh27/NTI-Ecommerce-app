@@ -1,0 +1,31 @@
+<div class="product-card">
+  <div class="thumb-wrap">
+    <img class="thumb" [src]="p.imgURL | imgUrl" [alt]="p.title" />
+
+    <!-- Hover overlay: routes to product details -->
+    <a class="overlay-btn" [routerLink]="['/product', p.route || p._id]">
+      Show details
+    </a>
+  </div>
+
+  <div class="body">
+    <div class="title" [title]="p.title">{{ p.title }}</div>
+    <div class="price">{{ p.price | price }}</div>
+
+    <div *ngIf="p.stock >= 0" class="stock">
+      <span *ngIf="p.stock > 3">In stock</span>
+      <span *ngIf="p.stock > 0 && p.stock <= 3" class="low">Only {{ p.stock }} left</span>
+      <span *ngIf="p.stock === 0" class="out">Out of stock</span>
+    </div>
+
+    <button class="btn btn-dark w-100 btn-add"
+            (click)="addToCart($event, p)"
+            [disabled]="busy">
+      {{ busy ? 'Adding…' : 'Add to cart' }}
+    </button>
+
+    <div *ngIf="msg" class="alert alert-success py-1 mt-2 mb-0 text-center small">
+      {{ msg }}
+    </div>
+  </div>
+</div>

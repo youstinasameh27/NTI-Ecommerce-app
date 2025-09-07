@@ -1,0 +1,41 @@
+<div class="actions">
+
+  <div class="mb-2">
+    <span class="h5 mb-0 d-inline-block">{{ priceNow() }} EGP</span>
+  </div>
+
+  <div *ngFor="let name of optionNames()" class="mb-3">
+    <label class="form-label small">{{ name }}</label>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="btn btn-outline-dark btn-sm option-btn"
+        [class.active]="sel[name] === val"
+        [class.oos]="isDisabled(name, val)"
+        [disabled]="isDisabled(name, val)"
+        *ngFor="let val of valuesFor(name)"
+        (click)="choose(name, val)">
+        <span class="text">{{ val }}</span>
+        <span class="stock">({{ stockIfChoose(name, val) }})</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center gap-2 mt-3">
+    <div class="input-group input-group-sm" style="width:130px;">
+      <button class="btn btn-outline-secondary" type="button" (click)="dec()">−</button>
+      <input type="number" class="form-control text-center" [(ngModel)]="qty" min="1" max="99">
+      <button class="btn btn-outline-secondary" type="button" (click)="inc()">+</button>
+    </div>
+
+    <button class="btn btn-dark flex-grow-1"
+            (click)="add()"
+            [disabled]="busy || !canAdd()">
+      {{ busy ? 'Adding...' : 'Add to cart' }}
+    </button>
+  </div>
+
+  <div *ngIf="ok" class="alert alert-success py-2 mt-3">{{ ok }}</div>
+  <div *ngIf="msg" class="alert alert-warning py-2 mt-3">{{ msg }}</div>
+</div>

@@ -1,0 +1,21 @@
+<header class="header navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand brand" routerLink="/home">Storefront</a>
+
+    <nav class="ms-auto d-flex align-items-center actions">
+      <a class="nav-link" routerLink="/products">Products</a>
+
+      <a class="nav-link" *ngIf="(_authS.isAuth$ | async)" routerLink="/cart">Cart</a>
+      <a class="nav-link" *ngIf="(_authS.isAuth$ | async)" routerLink="/profile">Profile</a>
+      <a class="nav-link" *ngIf="(_authS.isAuth$ | async) && _authS.isAdmin()" routerLink="/dashboard/home">Dashboard</a>
+
+      <ng-container *ngIf="!(_authS.isAuth$ | async); else logged">
+        <a class="btn btn-primary" routerLink="/auth/login">Login</a>
+        <a class="btn btn-outline-secondary ms-2" routerLink="/auth/register">Register</a>
+      </ng-container>
+      <ng-template #logged>
+        <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+      </ng-template>
+    </nav>
+  </div>
+</header>

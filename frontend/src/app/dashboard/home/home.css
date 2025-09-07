@@ -1,0 +1,38 @@
+:root{
+  --card:#0f1720;
+  --muted:#93a3ad;
+  --accent:#7bd389;
+  --text:#e7f2fb;
+  --radius:10px;
+}
+
+.card-body {
+  padding:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:8px;
+  color:var(--text);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+}
+
+
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row .col { flex:1; min-width:180px; }
+
+
+.small { font-size:0.9rem; color:var(--muted); }
+.text-muted { color:var(--muted) !important; }
+
+
+.quick-stat {
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+  padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+}
+.quick-stat .k { font-weight:900; color:var(--accent); font-size:1.1rem; }
+.quick-stat .l { color:var(--muted); font-size:0.95rem; }
+
+
+.activity-list { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+.activity-item {
+  padding:10px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  border:1px solid rgba(255,255,255,0.02);
+}
